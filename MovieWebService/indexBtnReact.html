@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Btn Event React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script>
+    const root = document.querySelector("#root");
+    const h3 = React.createElement(
+      // React를 이용하면 좋은 점은 js에서 태그를 만들 수 있다.
+      // 태그 정의하는 곳에 property, content, event 모두 넣을 수 있다.
+      "h3",
+      {
+        id: "title",
+        style: { color: "tomato" },
+        onMouseEnter: () => console.log("Mouse Enter!"),
+      },
+      "Hello, I'm a h3 tag!"
+    );
+    const btn = React.createElement(
+      "button",
+      { onClick: () => console.log("Mouse Click!") },
+      // 반드시 중괄호 안에 존재해야 한다.
+      "Click Me!"
+    );
+    // HTML 태그
+    // Properties OR addEventListener
+    // Content
+    const container = React.createElement("div", null, [h3, btn]);
+    ReactDOM.render(container, root);
+    // root 안에 container를 넣어준다.
+  </script>
+</html>
