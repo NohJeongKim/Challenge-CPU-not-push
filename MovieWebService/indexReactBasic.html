@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Click Btn Count React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script>
+    const root = document.getElementById("root");
+    const span = React.createElement(
+      "span",
+      {
+        id: "sexy-span",
+        style: { color: "tomato" },
+      },
+      "Hello, I'm a span."
+      // HTML 태그
+      // Properties (주의) 중괄호를 이용해야 한다. { : } 이런 식으로 이용한다.
+      // Content 순으로 진행된다.
+    );
+    // React에서 createElement를 해줘야 한다.
+    // React를 이용해서 js에서 html 코드를 작성할 수 있다.
+    // ReactDOM을 이용해서 연결시킬 수 있다.
+    ReactDOM.render(span, root); // root 안에 span 태그가 존재한다.
+  </script>
+</html>
