@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Click Btn Count Vanilla JS</title>
+  </head>
+  <body>
+    <span>Total Clicks: 0</span>
+    <button>Click Me!</button>
+  </body>
+  <script>
+    // html에서 변수를 만들어서 가져오기.
+    let clickCnt = 0;
+    const span = document.querySelector("span");
+    const btn = document.querySelector("button");
+
+    // 이벤트에 맞는 함수 제작하기.
+    function onClickBtn() {
+      clickCnt += 1;
+      span.innerText = `Total Clicks: ${clickCnt}`;
+    }
+
+    // 이벤트와 함수를 연결시키기.
+    btn.addEventListener("click", onClickBtn);
+  </script>
+</html>
