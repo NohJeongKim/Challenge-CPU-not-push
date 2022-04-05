@@ -50,9 +50,11 @@
         counter = counter + 1;
         console.log(counter);
         */
-        setCounter(counter + 1);
+        // setCounter(counter + 1); 이 방식보다는 밑의 방식이 더욱 안전하다.
+        setCounter((current) => current + 1)
         // read-only Error : const라고 지정했을 경우
         // setCounter(counter + 1); // counter에 값 넣어주고 reRendering을 해줄 것 이다.
+        // 1. 값을 직접 넣어주기, 2. 함수를 전달시켜주기.
       };
 
       return (
