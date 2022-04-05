@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Btn Click JSX</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // JSX로 변환해주는 변환기를 설치해주는 것이다.
+    const root = document.querySelector("#root");
+    // JSX로 작성해주기. HTML와 매우 흡사하다.
+    // ={} 꼴로 바꿔주기.
+    // (중요) JSX의 컴포넌트는 "무조건" 대문자이다.
+
+    // 1. function + return
+    // 2. const + function
+    // 3. reactDOM.render
+
+    function Title() {
+      // function을 만들고 return 처리를 반드시 해줘야 한다.
+      return (
+        <h3
+          id="title"
+          style={{ color: "tomato" }}
+          onMouseEnter={() => console.log("Mouse Enter!")}
+        >
+          Hello, I'm h3 tag!
+        </h3>
+      );
+    }
+
+    function Button() {
+      // function을 만들고 return 처리를 반드시 해줘야 한다.
+      return (
+        <button
+          onClick={() => console.log("Mouse Click!")}
+          style={{ backgroundColor: "yellow" }}
+        >
+          Click Me!
+        </button>
+      );
+    }
+
+    // =()=>()
+    // const + function
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>
