@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Btn JSX Sol2</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    // 1. 좋지 않은 방식 : rendering을 잊으면 안되기 때문에 좋지 않다..
+    let counter = 0;
+    function countUp() {
+      counter += 1;
+      reRender();
+      // 변경을 해줘야 하는 부분만 변경해주고 있다.
+    }
+
+    function reRender() {
+      ReactDOM.render(<Container />, root);
+    }
+
+    const Container = () => (
+      <div>
+        <h3>Total Clicks : {counter}</h3>
+        <button onClick={countUp} style={{ backgroundColor: "tomato" }}>
+          Click Me!
+        </button>
+      </div>
+    );
+    reRender();
+  </script>
+</html>
