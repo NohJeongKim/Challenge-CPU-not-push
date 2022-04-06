@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Super Converter</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18.0.0/umd/react.production.min.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18.0.0/umd/react-dom.production.min.js"
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    function Minute2Hours() {
+      const [amount, setAmount] = React.useState(0);
+      const [invert, setInvert] = React.useState(false);
+
+      const onChange = (event) => {
+        // console.log(event.target.value);
+        setAmount(event.target.value);
+      };
+      const Reset = () => {
+        setAmount(0);
+      };
+      const Invert = () => {
+        Reset();
+        setInvert((current) => !current);
+      };
+
+      return (
+        <div>
+          <h3>Minutes To Hours</h3>
+          <div>
+            <label htmlFor="minutes">Minutes </label>
+            <input
+              type="number"
+              id="minutes"
+              placeholder="minutes"
+              onChange={onChange}
+              value={invert ? amount * 60 : amount}
+              disabled={invert === true}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours </label>
+            <input
+              type="number"
+              id="hours"
+              placeholder="hours"
+              onChange={onChange}
+              value={invert ? amount : amount / 60}
+              disabled={invert === false}
+            />
+          </div>
+          <button onClick={Reset}>Reset</button>
+          <button onClick={Invert}>Invert</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<Minute2Hours />, root);
+
+    function Cel2Fah() {
+      const [temp, setTemp] = React.useState(0);
+      const [invert, setInvert] = React.useState(false);
+
+      const onChangeTemp = (event) => {
+        // console.log(event.target.value);
+        setTemp(event.target.value);
+      };
+      const Reset = () => {
+        setTemp(0);
+      };
+      const Invert = () => {
+        Reset();
+        setInvert((current) => !current);
+      };
+
+      return (
+        <div>
+          <h3>Celsius To Fahrenheit</h3>
+          <div>
+            <label htmlFor="cel">Celsius Temperture </label>
+            <input
+              type="number"
+              placeholder="Celsius Temp"
+              id="cel"
+              onChange={onChangeTemp}
+              value={invert ? ((temp - 32) * 5) / 9 : temp}
+              disabled={invert === true}
+            />
+          </div>
+          <div>
+            <label htmlFor="fah">Fahrenheit Temperture </label>
+            <input
+              type="number"
+              placeholder="Fahrenheit Temp"
+              id="fah"
+              value={invert ? temp : (temp * 9) / 5 + 32}
+              disabled={invert === false}
+              onChange={onChangeTemp}
+            />
+          </div>
+          <button onClick={Reset}>Reset</button>
+          <button onClick={Invert}>Invert</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<Cel2Fah />, root);
+
+    function App() {
+      const [index, setIndex] = React.useState("basic");
+
+      const onSelect = (event) => {
+        // console.log(event.target.value);
+        setIndex(event.target.value);
+      };
+
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <label for="select">Choose Your Selection </label>
+          <select name="converter" id="select" onChange={onSelect}>
+            <option value="basic">--Please Choose your Opt--</option>
+            <option value="min2hour">Minutes2Hours</option>
+            <option value="cel2fah">CelTemp2FahTemp</option>
+          </select>
+          <hr />
+          {index === "basic" ? <h3>Please Choose your Choice !!!</h3> : null}
+          {index === "min2hour" ? <Minute2Hours /> : null}
+          {index === "cel2fah" ? <Cel2Fah /> : null}
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
