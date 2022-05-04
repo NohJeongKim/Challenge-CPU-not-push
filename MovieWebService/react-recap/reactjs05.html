@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>State</title>
+  </head>
+  <body>
+    <div id="rootFirst"></div>
+    <div id="rootSec"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18.1.0/umd/react.production.min.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.production.min.js"
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const rootFirst = document.getElementById("rootFirst");
+    // 1. 좋지 않은 방식
+    let counter = 0;
+    function countUp() {
+      counter += 1;
+      render();
+    }
+
+    function render() {
+      ReactDOM.render(<App />, rootFirst);
+    }
+
+    const Title = () => (
+      <h3 style={{ color: "Purple" }}>Total Clicks : {counter}</h3>
+    );
+    const Btn = () => (
+      <button onClick={countUp} style={{ backgroundColor: "Tomato" }}>
+        Click Me!
+      </button>
+    );
+    const App = () => (
+      <div>
+        <Title />
+        <Btn />
+      </div>
+    );
+    render();
+
+    // 2. 좋은 방식 : useState 이용하기
+    const rootSec = document.getElementById("rootSec");
+    function Container() {
+      let [count, setCount] = React.useState(0);
+      const countUpSec = () => {
+        setCount((count += 1));
+      };
+      return (
+        <div>
+          <h3 style={{ color: "Green" }}>Total Clicks : {count}</h3>
+          <button onClick={countUpSec} style={{ backgroundColor: "Yellow" }}>
+            Click Me!
+          </button>
+        </div>
+      );
+    }
+    ReactDOM.render(<Container />, rootSec);
+  </script>
+</html>
