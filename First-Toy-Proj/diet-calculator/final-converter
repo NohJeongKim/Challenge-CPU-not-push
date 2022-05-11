@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diet Calculator</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18.1.0/umd/react.production.min.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.production.min.js"
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    function BmiCal() {
+      const [weight, setWeight] = React.useState();
+      const [height, setHeight] = React.useState();
+      const [bmi, setBmi] = React.useState();
+      const [bmiText, setBmiText] = React.useState();
+
+      const changeWeight = (event) => setWeight(event.target.value);
+      const changeHeight = (event) => setHeight(event.target.value);
+      const calBmi = () => setBmi(weight / (height / 100) ** 2);
+      const reset = () => setWeight(0) || setHeight(0); // 근데 왜 이렇게 해야 2개다 되는지는 잘 모르겠다
+      function bodyCond() {
+        if (bmi < 18.5) {
+          setBmiText((bmiText) => "당신은 저체중 입니다.");
+        } else if (bmi >= 18.5 && bmi < 23) {
+          setBmiText((bmiText) => "당신은 정상 체중 입니다.");
+        } else if (bmi >= 23 && bmi < 25) {
+          setBmiText((bmiText) => "당신은 과체중 입니다.");
+        } else if (bmi >= 25 && bmi < 30) {
+          setBmiText((bmiText) => "당신은 경도 비만 입니다.");
+        } else if (bmi >= 30 && bmi < 35) {
+          setBmiText((bmiText) => "당신은 중정도 비만 입니다.");
+        } else if (bmi >= 35) {
+          setBmiText((bmiText) => "당신은 고도 비만 입니다.");
+        } else {
+          setBmiText((bmiText) => "정확한 BMI를 입력해주세요.");
+        }
+      }
+
+      return (
+        <div>
+          <div>
+            <h2>BMI Calculator</h2>
+            <label htmlFor="height"> Your Height (cm) : </label>
+            <input
+              type="number"
+              placeholder="Write Your Height (cm)."
+              id="height"
+              onChange={changeHeight}
+              value={height}
+            />
+          </div>
+          <div>
+            <label htmlFor="weight"> Your Weight (kg) : </label>
+            <input
+              type="number"
+              placeholder="Write Your Weight (kg)."
+              id="weight"
+              onChange={changeWeight}
+              value={weight}
+            />
+          </div>
+          <button onClick={calBmi}>Submit</button>
+          <button onClick={reset}>Reset</button>
+          <div>
+            <h2>Your BMI : {bmi}</h2>
+          </div>
+          <button onClick={bodyCond}>Check Your Body State</button>
+          <div>
+            <h2>Your Body State : {bmiText}</h2>
+          </div>
+        </div>
+      );
+    }
+    function Protein() {
+      const [protein, setProtein] = React.useState();
+      const onChange = (event) => {
+        setProtein(event.target.value);
+      };
+
+      return (
+        <div>
+          <h2>Protein Calculator</h2>
+          <div>
+            <label htmlFor="protein">Your Weight (kg) : </label>
+            <input
+              type="number"
+              id="protein"
+              placeholder="Write Your Weight (kg)."
+              onChange={onChange}
+              value={protein}
+            />
+          </div>
+          <div>
+            <label for="protein">Proper Amount Of Protein Per DAY (g) : </label>
+            <input type="number" id="protein" disabled value={protein * 1.5} />
+          </div>
+        </div>
+      );
+    }
+    function Obesity() {
+      const [height, setHeight] = React.useState();
+      const [index, setIndex] = React.useState("");
+      const [obesity, setObesity] = React.useState("");
+      const [obesityText, setObesityText] = React.useState();
+      const [weight, setWeight] = React.useState();
+
+      const onHeight = (event) => {
+        setHeight(event.target.value);
+      };
+      const handleSex = (event) => {
+        // console.log(event.target.value);
+        setIndex(event.target.value);
+      };
+      const onWeight = (event) => {
+        setWeight(event.target.value);
+      };
+      function handleObesity() {
+        if (index === "1") {
+          if ((weight / ((height / 100) ** 2 * 21)) * 100 < 90) {
+            setObesityText((obesityText) => "당신은 저체중입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 21)) * 100 >= 90 &&
+            (weight / ((height / 100) ** 2 * 21)) * 100 < 110
+          ) {
+            setObesityText((obesityText) => "당신은 정상 체중입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 21)) * 100 >= 110 &&
+            (weight / ((height / 100) ** 2 * 21)) * 100 < 120
+          ) {
+            setObesityText((obesityText) => "당신은 과체중입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 21)) * 100 >= 120 &&
+            (weight / ((height / 100) ** 2 * 21)) * 100 < 130
+          ) {
+            setObesityText((obesityText) => "당신은 경도 비만입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 21)) * 100 >= 130 &&
+            (weight / ((height / 100) ** 2 * 21)) * 100 < 160
+          ) {
+            setObesityText((obesityText) => "당신은 중정도 비만입니다.");
+          } else {
+            setObesityText((obesityText) => "당신은 고도 비만입니다.");
+          }
+        } else {
+          if ((weight / ((height / 100) ** 2 * 22)) * 100 < 90) {
+            setObesityText((obesityText) => "당신은 저체중입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 22)) * 100 >= 90 &&
+            (weight / ((height / 100) ** 2 * 22)) * 100 < 110
+          ) {
+            setObesityText((obesityText) => "당신은 정상 체중입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 22)) * 100 >= 110 &&
+            (weight / ((height / 100) ** 2 * 22)) * 100 < 120
+          ) {
+            setObesityText((obesityText) => "당신은 과체중입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 22)) * 100 >= 120 &&
+            (weight / ((height / 100) ** 2 * 22)) * 100 < 130
+          ) {
+            setObesityText((obesityText) => "당신은 경도 비만입니다.");
+          } else if (
+            (weight / ((height / 100) ** 2 * 22)) * 100 >= 130 &&
+            (weight / ((height / 100) ** 2 * 22)) * 100 < 160
+          ) {
+            setObesityText((obesityText) => "당신은 중정도 비만입니다.");
+          } else {
+            setObesityText((obesityText) => "당신은 고도 비만입니다.");
+          }
+        }
+      }
+
+      return (
+        <div>
+          <h2>Obesity Calculator</h2>
+          <div>
+            <label for="height">Your Height (cm) : </label>
+            <input
+              type="number"
+              id="height"
+              placeholder="Write your Height (cm)."
+              onChange={onHeight}
+            />
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="man"
+              name="gender"
+              value="0"
+              onClick={handleSex}
+              checked={index === "0" || index === ""}
+            />
+            <label for="man">Man</label>
+            <input
+              type="radio"
+              id="woman"
+              name="gender"
+              value="1"
+              onClick={handleSex}
+            />
+            <label for="woman">Woman</label>
+          </div>
+          <div>
+            <div>
+              <input
+                type="number"
+                value={
+                  index === "1"
+                    ? (height / 100) ** 2 * 21
+                    : (height / 100) ** 2 * 22
+                }
+                id="woman"
+                disabled
+              />
+            </div>
+          </div>
+          <div>
+            <label for="weight">Your Weight : </label>
+            <input
+              type="number"
+              id="weight"
+              placeholder="Write your Weight (kg)."
+              onChange={onWeight}
+            />
+          </div>
+          <div>
+            <h2>Your Obesity : {obesityText}</h2>
+            <button onClick={handleObesity}>Submit</button>
+          </div>
+        </div>
+      );
+    }
+    function App() {
+      const [index, setIndex] = React.useState("");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1>Diet Calculator</h1>
+          <select onChange={onSelect} value={index}>
+            <option value="">--- Select Your Calculator ---</option>
+            <option value="0">BMI Calculator</option>
+            <option value="1">Obesity Calculator</option>
+            <option value="2">Proper Protein Calculator</option>
+          </select>
+          <hr />
+          {index === "0" ? <BmiCal /> : null}
+          {index === "1" ? <Obesity /> : null}
+          {index === "2" ? <Protein /> : null}
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
